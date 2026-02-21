@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Registro de la persona Usuaria</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f4f6f8;
+            color: #222;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 16px;
+        }
+
+        #banner {
+            width: 100%;
+            background: #1f2a44;
+            color: #ffffff;
+            margin: 0;
+            padding: 28px 0;
+        }
+
+        .tituloBanner {
+            margin: 0 auto;
+            padding: 0 10px;
+            width: 50%;
+            font-size: 26px;
+        }
+
+        #container {
+            width: 50%;
+            margin: 30px auto;
+            padding: 28px;
+            background: #ffffff;
+        }
+
+        .section {
+            margin: 18px 0;
+            padding: 16px;
+            background: #eef2f7;
+        }
+
+        h1 {
+            margin: 0 0 10px 0;
+            padding: 0;
+            font-size: 24px;
+            color: #1f2a44;
+        }
+
+        p {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: #444;
+        }
+
+        .campo {
+            margin: 14px 0;
+            padding: 0;
+        }
+
+        label {
+            display: block;
+            margin: 0 0 6px 0;
+            padding: 0;
+            font-size: 14px;
+            color: #222;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            color: #222;
+            border: 1px solid #b8c2cc;
+            background: #ffffff;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        .intereses {
+            margin: 12px 0 0 0;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid #b8c2cc;
+        }
+
+        .interesItem {
+            margin: 8px 0;
+            padding: 0;
+        }
+
+        .interesItem label {
+            display: inline;
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            color: #222;
+        }
+
+        .interesItem input {
+            width: auto;
+            margin: 0 8px 0 0;
+            padding: 0;
+        }
+
+        #btnRegistrar {
+            width: 100%;
+            margin: 14px 0 0 0;
+            padding: 12px;
+            font-size: 16px;
+            color: #ffffff;
+            border: 1px solid #1f2a44;
+            background: #1f2a44;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="banner">
+        <div class="tituloBanner">Formulario de registro</div>
+    </div>
+
+    <div id="container">
+
+        <div class="section">
+            <h1>Registro de la persona Usuaria</h1>
+            <p>Completa tus datos para crear tu registro.</p>
+        </div>
+
+        <form id="frmRegistro" class="section" action="#" method="post">
+
+            <div class="campo">
+                <label for="txtNombre">Nombre</label>
+                <input id="txtNombre" name="nombre" type="text" />
+            </div>
+
+            <div class="campo">
+                <label for="txtApellido">Apellido</label>
+                <input id="txtApellido" name="apellido" type="text" />
+            </div>
+
+            <div class="campo">
+                <label for="txtCorreo">Correo Electrónico</label>
+                <input id="txtCorreo" name="correo" type="email" />
+            </div>
+
+            <div class="campo">
+                <label for="txtPassword">Contraseña</label>
+                <input id="txtPassword" name="password" type="password" />
+            </div>
+
+            <div class="campo">
+                <label for="txtDescripcion">Descripción</label>
+                <textarea id="txtDescripcion" name="descripcion"></textarea>
+            </div>
+
+            <div class="campo">
+                <label>Intereses</label>
+
+                <div class="intereses">
+                    <div class="interesItem">
+                        <input id="chkTecnologia" name="intereses" value="Tecnología" type="checkbox" />
+                        <label for="chkTecnologia">Tecnología</label>
+                    </div>
+
+                    <div class="interesItem">
+                        <input id="chkArte" name="intereses" value="Arte" type="checkbox" />
+                        <label for="chkArte">Arte</label>
+                    </div>
+
+                    <div class="interesItem">
+                        <input id="chkDeporte" name="intereses" value="Deporte" type="checkbox" />
+                        <label for="chkDeporte">Deporte</label>
+                    </div>
+
+                    <div class="interesItem">
+                        <input id="chkCiencias" name="intereses" value="Ciencias" type="checkbox" />
+                        <label for="chkCiencias">Ciencias</label>
+                    </div>
+
+                    <div class="interesItem">
+                        <input id="chkVideojuegos" name="intereses" value="Videojuegos" type="checkbox" />
+                        <label for="chkVideojuegos">Videojuegos</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="campo">
+                <input id="btnRegistrar" type="submit" value="Registrarse" />
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+
+</html>
