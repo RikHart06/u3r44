@@ -4,123 +4,295 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Registro de la persona Usuaria</title>
+    <title>Calculadora básica</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@600;700&display=swap"
+        rel="stylesheet">
 
     <style>
-        body {
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            background: #f4f6f8;
-            color: #222;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 16px;
+        }
+
+        :root {
+            --bg: #1a1a1f;
+            --body-bg: #0d0d11;
+            --surface: #222229;
+            --border: #3a3a45;
+            --accent: #f0a500;
+            --accent2: #e05c00;
+            --green: #39d353;
+            --red: #e03030;
+            --blue: #3a8edb;
+            --text: #e8e0d0;
+            --muted: #7a7a8a;
+            --display-bg: #090c0a;
+            --display-fg: #5dfc8a;
+            --shadow: rgba(0, 0, 0, 0.7);
+        }
+
+        body {
+            min-height: 100vh;
+            background: var(--body-bg);
+            background-image:
+                repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(255, 255, 255, 0.015) 39px, rgba(255, 255, 255, 0.015) 40px),
+                repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(255, 255, 255, 0.015) 39px, rgba(255, 255, 255, 0.015) 40px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Rajdhani', sans-serif;
+            color: var(--text);
+            padding-bottom: 60px;
         }
 
         #banner {
             width: 100%;
-            background: #1f2a44;
-            color: #ffffff;
-            margin: 0;
-            padding: 28px 0;
+            padding: 18px 0 16px;
+            background: var(--surface);
+            border-bottom: 2px solid var(--accent);
+            position: relative;
+            overflow: hidden;
+        }
+
+        #banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
 
         .tituloBanner {
+            width: 90%;
+            max-width: 520px;
             margin: 0 auto;
-            padding: 0 10px;
-            width: 50%;
-            font-size: 26px;
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-shadow: 0 0 20px rgba(240, 165, 0, 0.4);
+            text-align: center;
+        }
+
+        .tituloBanner span {
+            color: var(--muted);
+            font-weight: 600;
+            font-size: 18px;
+            letter-spacing: 3px;
+            display: block;
+            margin-top: 2px;
         }
 
         #container {
-            width: 50%;
-            margin: 30px auto;
-            padding: 28px;
-            background: #ffffff;
+            margin-top: 40px;
+            width: 90%;
+            max-width: 380px;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            padding: 24px 20px 28px;
+            box-shadow:
+                0 0 0 1px rgba(255, 255, 255, 0.03),
+                0 20px 60px var(--shadow),
+                0 0 80px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
 
         .section {
-            margin: 18px 0;
-            padding: 16px;
-            background: #eef2f7;
+            margin-bottom: 20px;
+            background: var(--display-bg);
+            border: 1px solid #1a2e20;
+            border-radius: 3px;
+            padding: 14px 14px 10px;
+            box-shadow:
+                inset 0 2px 10px rgba(0, 0, 0, 0.8),
+                0 0 12px rgba(57, 211, 83, 0.05);
+            position: relative;
         }
 
-        h1 {
-            margin: 0 0 10px 0;
-            padding: 0;
-            font-size: 24px;
-            color: #1f2a44;
+        #displayResult {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 36px;
+            color: var(--display-fg);
+            text-align: right;
+            padding: 6px 4px;
+            min-height: 52px;
+            letter-spacing: 2px;
+            text-shadow:
+                0 0 8px rgba(93, 252, 138, 0.8),
+                0 0 20px rgba(93, 252, 138, 0.3);
+            border: none;
+            background: transparent;
+            background-image: repeating-linear-gradient(0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(0, 0, 0, 0.08) 3px,
+                    rgba(0, 0, 0, 0.08) 4px);
+            overflow: hidden;
+            white-space: nowrap;
         }
 
-        p {
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-            color: #444;
-        }
-
-        .campo {
-            margin: 14px 0;
-            padding: 0;
-        }
-
-        label {
-            display: block;
-            margin: 0 0 6px 0;
-            padding: 0;
-            font-size: 14px;
-            color: #222;
-        }
-
-        input,
-        textarea {
+        #hdnValue {
             width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            color: #222;
-            border: 1px solid #b8c2cc;
-            background: #ffffff;
-            box-sizing: border-box;
+            margin-top: 8px;
+            padding: 5px 8px;
+            background: #060806;
+            border: 1px solid #1e2e1e;
+            border-radius: 2px;
+            color: rgba(93, 252, 138, 0.4);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 1px;
+            pointer-events: none;
         }
 
-        textarea {
-            height: 110px;
-            resize: none;
+        #hdnValue::placeholder {
+            color: rgba(93, 252, 138, 0.15);
         }
 
-        .intereses {
-            margin: 12px 0 0 0;
-            padding: 10px;
-            background: #ffffff;
-            border: 1px solid #b8c2cc;
+        .keypad {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 3px;
+            padding: 16px 12px 12px;
+            position: relative;
         }
 
-        .interesItem {
-            margin: 8px 0;
-            padding: 0;
+        .row {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 8px;
         }
 
-        .interesItem label {
-            display: inline;
-            margin: 0;
-            padding: 0;
-            font-size: 14px;
-            color: #222;
+        .row:last-child {
+            margin-bottom: 0;
         }
 
-        .interesItem input {
-            width: auto;
-            margin: 0 8px 0 0;
-            padding: 0;
+        .field {
+            flex: 1;
         }
 
-        #btnRegistrar {
+        input[type="button"] {
             width: 100%;
-            margin: 14px 0 0 0;
-            padding: 12px;
-            font-size: 16px;
+            height: 56px;
+            border: none;
+            border-radius: 3px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: transform 80ms ease, box-shadow 80ms ease, filter 80ms ease;
+            position: relative;
+        }
+
+        .btnNumber {
+            background: #2e2e38;
+            color: #d4cfc8;
+            border: 1.5px solid #3e3e4a;
+            box-shadow:
+                0 4px 0 #111116,
+                0 5px 6px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.07);
+        }
+
+        .btnNumber:hover {
+            background: #36363f;
+            filter: brightness(1.1);
+        }
+
+        .btnNumber:active,
+        .btnNumber:focus {
+            transform: translateY(3px);
+            box-shadow:
+                0 1px 0 #111116,
+                0 2px 3px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            outline: none;
+        }
+
+        .btnOperator {
+            background: linear-gradient(180deg, #3a8edb 0%, #2570bb 100%);
             color: #ffffff;
-            border: 1px solid #1f2a44;
-            background: #1f2a44;
+            border: 1.5px solid #1a5a9a;
+            box-shadow:
+                0 4px 0 #163a60,
+                0 5px 8px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        .btnOperator:hover {
+            filter: brightness(1.12);
+        }
+
+        .btnOperator:active,
+        .btnOperator:focus {
+            transform: translateY(3px);
+            box-shadow:
+                0 1px 0 #163a60,
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        #btnClear {
+            background: linear-gradient(180deg, #e03030 0%, #b82020 100%);
+            color: #fff;
+            border: 1.5px solid #8a1010;
+            box-shadow:
+                0 4px 0 #5a0a0a,
+                0 5px 8px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.15);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+        }
+
+        #btnClear:hover {
+            filter: brightness(1.1);
+        }
+
+        #btnClear:active,
+        #btnClear:focus {
+            transform: translateY(3px);
+            box-shadow:
+                0 1px 0 #5a0a0a,
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            outline: none;
+        }
+
+        #btnResult {
+            background: linear-gradient(180deg, #f0a500 0%, #c88000 100%);
+            color: #1a1000;
+            border: 1.5px solid #a06000;
+            box-shadow:
+                0 4px 0 #5a3a00,
+                0 5px 8px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            text-shadow: 0 1px 0 rgba(255, 255, 255, 0.15);
+            font-size: 24px;
+        }
+
+        #btnResult:hover {
+            filter: brightness(1.1);
+        }
+
+        #btnResult:active,
+        #btnResult:focus {
+            transform: translateY(3px);
+            box-shadow:
+                0 1px 0 #5a3a00,
+                0 2px 4px rgba(0, 0, 0, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            outline: none;
         }
     </style>
 </head>
@@ -128,82 +300,155 @@
 <body>
 
     <div id="banner">
-        <div class="tituloBanner">Formulario de registro</div>
+        <div class="tituloBanner">
+            <span>Calculadora básica</span>
+        </div>
     </div>
 
     <div id="container">
 
         <div class="section">
-            <h1>Registro de la persona Usuaria</h1>
-            <p>Completa tus datos para crear tu registro.</p>
+            <h1 id="displayResult" dir="rtl">0</h1>
+            <input type="text" id="hdnValue" dir="rtl" placeholder="memoria" readonly tabindex="-1">
         </div>
 
-        <form id="frmRegistro" class="section" action="#" method="post">
+        <div class="keypad">
 
-            <div class="campo">
-                <label for="txtNombre">Nombre</label>
-                <input id="txtNombre" name="nombre" type="text" />
+            <div class="row">
+                <div class="field"><input id="btn7" value="7" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn8" value="8" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn9" value="9" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btnMinus" value="-" class="btnOperator" type="button" /></div>
             </div>
 
-            <div class="campo">
-                <label for="txtApellido">Apellido</label>
-                <input id="txtApellido" name="apellido" type="text" />
+            <div class="row">
+                <div class="field"><input id="btn4" value="4" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn5" value="5" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn6" value="6" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btnPlus" value="+" class="btnOperator" type="button" /></div>
             </div>
 
-            <div class="campo">
-                <label for="txtCorreo">Correo Electrónico</label>
-                <input id="txtCorreo" name="correo" type="email" />
+            <div class="row">
+                <div class="field"><input id="btn1" value="1" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn2" value="2" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btn3" value="3" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btnTimes" value="*" class="btnOperator" type="button" /></div>
             </div>
 
-            <div class="campo">
-                <label for="txtPassword">Contraseña</label>
-                <input id="txtPassword" name="password" type="password" />
+            <div class="row">
+                <div class="field"><input id="btnClear" value="C" class="btnAction" type="button" /></div>
+                <div class="field"><input id="btn0" value="0" class="btnNumber" type="button" /></div>
+                <div class="field"><input id="btnResult" value="=" class="btnAction" type="button" /></div>
+                <div class="field"><input id="btnDivide" value="/" class="btnOperator" type="button" /></div>
             </div>
 
-            <div class="campo">
-                <label for="txtDescripcion">Descripción</label>
-                <textarea id="txtDescripcion" name="descripcion"></textarea>
-            </div>
-
-            <div class="campo">
-                <label>Intereses</label>
-
-                <div class="intereses">
-                    <div class="interesItem">
-                        <input id="chkTecnologia" name="intereses" value="Tecnología" type="checkbox" />
-                        <label for="chkTecnologia">Tecnología</label>
-                    </div>
-
-                    <div class="interesItem">
-                        <input id="chkArte" name="intereses" value="Arte" type="checkbox" />
-                        <label for="chkArte">Arte</label>
-                    </div>
-
-                    <div class="interesItem">
-                        <input id="chkDeporte" name="intereses" value="Deporte" type="checkbox" />
-                        <label for="chkDeporte">Deporte</label>
-                    </div>
-
-                    <div class="interesItem">
-                        <input id="chkCiencias" name="intereses" value="Ciencias" type="checkbox" />
-                        <label for="chkCiencias">Ciencias</label>
-                    </div>
-
-                    <div class="interesItem">
-                        <input id="chkVideojuegos" name="intereses" value="Videojuegos" type="checkbox" />
-                        <label for="chkVideojuegos">Videojuegos</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="campo">
-                <input id="btnRegistrar" type="submit" value="Registrarse" />
-            </div>
-
-        </form>
-
+        </div>
     </div>
 
 </body>
 
 </html>
+
+<script>
+    let pendingOp = null;
+
+    document.querySelectorAll(".btnNumber").forEach(function (boton) {
+        boton.addEventListener("click", function (e) {
+            let currentValue = document.getElementById("displayResult").innerText;
+            let newValue = e.target.value;
+            if (currentValue === "0") {
+                currentValue = newValue;
+            } else {
+                currentValue = currentValue + newValue;
+            }
+            document.getElementById("displayResult").innerText = currentValue;
+        });
+    });
+
+    function getDisplay() {
+        return document.getElementById("displayResult");
+    }
+    function getMemory() {
+        return document.getElementById("hdnValue");
+    }
+
+    function handleOperator(newOp) {
+        let display = getDisplay();
+        let memory = getMemory();
+
+        let currentValue = display.innerText;
+        let memoryValue = memory.value;
+
+       if (memoryValue && pendingOp) {
+            let result = operation(pendingOp, memoryValue, currentValue);
+            memory.value = result;
+            display.innerText = "0";
+            pendingOp = newOp;
+            return;
+        }
+
+        if (!memoryValue) {
+            memory.value = currentValue;
+            display.innerText = "0";
+        }
+
+        pendingOp = newOp;
+    }
+
+    function handleAction(action) {
+        let display = getDisplay();
+        let memory = getMemory();
+
+        let currentValue = display.innerText;
+        let memoryValue = memory.value;
+
+        switch (action) {
+            case "=":
+                if (memoryValue && pendingOp) {
+                    let result = operation(pendingOp, memoryValue, currentValue);
+                    display.innerText = result;
+                    memory.value = "";
+                    pendingOp = null;
+                }
+                break;
+
+            case "C":
+                memory.value = "";
+                display.innerText = "";
+                pendingOp = null;
+                break;
+        }
+    }
+
+    document.querySelectorAll(".btnOperator").forEach(function (boton) {
+        boton.addEventListener("click", function (e) {
+            handleOperator(e.target.value);
+        });
+    });
+
+    document.querySelectorAll(".btnAction").forEach(function (boton) {
+        boton.addEventListener("click", function (e) {
+            handleAction(e.target.value);
+        });
+    });
+
+    function operation(op, memoryValue, currentValue) {
+
+        switch (op) {
+            case "-":
+                return toInt(memoryValue) - toInt(currentValue);
+            case "+":
+                return toInt(memoryValue) + toInt(currentValue);
+            case "*":
+                return toInt(memoryValue) * toInt(currentValue);
+            case "/":
+                return toInt(memoryValue) / toInt(currentValue);
+        }
+
+        return currentValue;
+    }
+
+    function toInt(texto) {
+        return parseInt(texto, 10);
+    }
+</script>
